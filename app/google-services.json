@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "485911552110",
+    "firebase_url": "https://punchontimedb.firebaseio.com",
+    "project_id": "punchontimedb",
+    "storage_bucket": "punchontimedb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:485911552110:android:9ad1cfec0416801fe1c67f",
+        "android_client_info": {
+          "package_name": "com.example.punchontime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "485911552110-mbf8g1i8ogntdgbbn2vujitqcj54eo7i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.punchontime",
+            "certificate_hash": "97a77d0c7ff306a816dd7d57b74aeab00aeb8155"
+          }
+        },
+        {
+          "client_id": "485911552110-ni32gmr7actp0gn4h3gffvh3nbt1m783.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZ0TGM6LFMAgX76XcpPAROCoBNT6___kk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "485911552110-ni32gmr7actp0gn4h3gffvh3nbt1m783.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
