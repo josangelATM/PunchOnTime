@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
+    final boolean success=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 signIn();
+
             }
         });
 
@@ -48,15 +51,24 @@ public class SignUpActivity extends AppCompatActivity {
 
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    //onAuthSuccess(task.getResult().getUser());
-                    Toast.makeText(SignUpActivity.this, "Logeado CHUCHAA, que crack compa.", Toast.LENGTH_LONG).show();
+                if (task.isSuccessful()) { finish();
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    //Toast.makeText(SignUpActivity.this, "User UID: ", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(SignUpActivity.this,MainScreen.class));
+                    Intent intent = new Intent(SignUpActivity.this, MainScreen.class);
+                    intent.putExtra("UserUID", user.getUid());
+                    startActivity(intent);
+
                 } else {
                     Toast.makeText(SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }
                 }
             });
         }
+
+     private void getIn(){
+
+     }
     }
 
 
