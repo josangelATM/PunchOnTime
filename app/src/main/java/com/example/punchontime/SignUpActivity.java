@@ -56,9 +56,9 @@ public class SignUpActivity extends AppCompatActivity {
                     //Toast.makeText(SignUpActivity.this, "User UID: ", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(SignUpActivity.this,MainScreen.class));
                     Intent intent = new Intent(SignUpActivity.this, MainScreen.class);
-                    intent.putExtra("UserUID", user.getUid());
+                    intent.putExtra("UID", user.getUid());
+                    //Toast.makeText(SignUpActivity.this,"Antes de: " + user.getUid(), Toast.LENGTH_LONG).show();
                     startActivity(intent);
-
                 } else {
                     Toast.makeText(SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }
