@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PunchOnTime</string>
+    <string name="Reclamo_Email"><u>Presentar reclamo a HR vía Email.</u></string>
 </resources>

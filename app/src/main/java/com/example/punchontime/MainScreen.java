@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -37,6 +38,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -52,6 +54,7 @@ public class MainScreen extends AppCompatActivity {
         setContentView(R.layout.activity_main_screen);
         Intent intent=this.getIntent();
         final String UserUID = intent.getStringExtra("UID");
+
 
         Map data;
 
@@ -227,9 +230,22 @@ public class MainScreen extends AppCompatActivity {
 
                 if (newState.equals("Finalizar turno")){
 
-                    /*Date d=new Date();
-                    SimpleDateFormat sdf=new SimpleDateFormat("hh:mm");
-                    String currentDateTimeString = sdf.format(d);*/
+                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    updateTimers(document.getData(),UserUID);
+                                    Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                } else {
+                                    Log.d(TAG, "No such document");
+                                }
+                            } else {
+                                Log.d(TAG, "get failed with ", task.getException());
+                            }
+                        }
+                    });
 
                     LocalTime nowTime= LocalTime.now();
                     String nowTimeString=nowTime.toString();
@@ -259,7 +275,7 @@ public class MainScreen extends AppCompatActivity {
                                     Log.w(TAG, "Error updating document Finalizar", e);
                                 }
                             });
-
+                    /*
                     docRef = db.collection("users").document(UserUID);
                     docRef
                             .update("horaEntrada", "")
@@ -275,6 +291,28 @@ public class MainScreen extends AppCompatActivity {
                                     Log.w(TAG, "Error updating document Finalizar", e);
                                 }
                             });
+        */
+
+                    docRef = db.collection("users").document(UserUID.toString());
+                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    populateDates(document.getData(),UserUID);
+
+                                    Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                } else {
+                                    Log.d(TAG, "No such document");
+                                }
+                            } else {
+                                Log.d(TAG, "get failed with ", task.getException());
+                            }
+                        }
+                    });
+
+
 
 
                 }
@@ -417,6 +455,18 @@ public class MainScreen extends AppCompatActivity {
             }
         });
 
+        ImageButton ibTimeSheet = findViewById(R.id.ibtTimeSheet);
+
+        ibTimeSheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainScreen.this, timeSheet.class);
+                intent.putExtra("UID", UserUID);
+                startActivity(intent);
+
+            }
+        });
+
     }
 
     public void getData(Map data, String UserUID){
@@ -431,6 +481,118 @@ public class MainScreen extends AppCompatActivity {
         writeCurrentStateAndPopulateSpinner(data.get("CurrentState").toString(),Boolean.parseBoolean(data.get("lunchTomado").toString()));
 
         writeTimers(horaEntrada,horaLunchI,horaLunchF,tiempoLunch,tiempoTrabajado,UserUID,Boolean.parseBoolean(data.get("lunchTomado").toString()));
+    }
+
+
+
+    public void populateDates(Map data, String UserUID){
+        Calendar cal = Calendar.getInstance();
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int month = cal.get(Calendar.MONTH);
+        int year = cal.get(Calendar.YEAR);
+        String horaEntrada= data.get("horaEntrada").toString();
+        String horaSalida= data.get("horaSalida").toString();
+        String tiempoLunch= data.get("tiempoLunch").toString();
+        String finalTotalTimeWork= "";
+
+        if(!horaEntrada.equals("")){
+            LocalTime horaEntradaLocal = LocalTime.parse(horaEntrada);
+            LocalTime nowTime= LocalTime.now();
+            nowTime=LocalTime.parse(nowTime.toString());
+            Duration dur = Duration.between(horaEntradaLocal,nowTime);
+            String duration = dur.toString();
+            String patternHours = "";
+            if(dur.toHours()==0){
+                patternHours="PT([0-9]+)M";
+            }
+            else{
+                patternHours = "([0-9]+)H([0-9]+)M";
+            }
+
+            Pattern r = Pattern.compile(patternHours);
+            Matcher m = r.matcher(duration);
+            String hoursDurationWork="";
+            String minutesDurationWork="";
+
+
+            Log.d("Value of Duration",String.valueOf(dur.toHours()));
+
+            if(dur.toHours()==0){
+                if (m.find( )) {
+                    minutesDurationWork=m.group(1);
+                }
+            }
+            else{
+                if (m.find( )) {
+                    hoursDurationWork=m.group(1);
+                    minutesDurationWork=m.group(2);
+                }
+            }
+
+
+        /*
+        Log.d("HoraEntrada",String.valueOf(horaEntradaLocal));
+        Log.d("HoraNow",String.valueOf(nowTime));
+        Log.d("DurationString",duration);
+        Log.d("HoraDurationHours",String.valueOf(hoursDurationWork));
+        Log.d("HoraDurationHours",String.valueOf(minutesDurationWork));*/
+
+
+            if (dur.toHours()==0) {
+                if (minutesDurationWork.length() == 1) {
+                    finalTotalTimeWork = "00:" + "0" + minutesDurationWork;
+                } else {
+
+                    if (dur.toMinutes()==0){
+                        finalTotalTimeWork = "00:00";
+                    }
+
+                    else {
+                        finalTotalTimeWork = "00:" + minutesDurationWork;
+                    }
+
+                }
+
+            }
+            else {
+                if (minutesDurationWork.length() == 1) {
+                    finalTotalTimeWork = hoursDurationWork + ":0" + minutesDurationWork;
+                } else {
+                    finalTotalTimeWork = hoursDurationWork +":"+ minutesDurationWork;
+                }
+            }
+
+        }
+
+
+
+        Map<String, Object> dateData = new HashMap<>();
+        dateData.put("Entrada",horaEntrada);
+        dateData.put("Salida",horaSalida);
+        dateData.put("TLunch",tiempoLunch);
+        dateData.put("TTrabajado",finalTotalTimeWork);
+
+
+
+
+        db.collection("dates").document(UserUID+String.valueOf(day)+String.valueOf(month)+String.valueOf(year))
+                .set(dateData)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast toast=Toast.makeText(getApplicationContext(),"Populate First", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER,0,0);
+                        toast.show();
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+                    }
+                });
+
     }
 
     public void writeHello(String employeeName){
@@ -827,6 +989,7 @@ public class MainScreen extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
+                            Toast.makeText(getApplicationContext(),"Update First", Toast.LENGTH_LONG).show();
                             Log.d(TAG, "DocumentSnapshot successfully updated!");
                         }
                     })
@@ -836,10 +999,7 @@ public class MainScreen extends AppCompatActivity {
                             Log.w(TAG, "Error updating document", e);
                         }
                     });
-
-
         }
-
 
         if(!horaLunchI.equals("")){
             if(lunchTomado){
@@ -1024,9 +1184,6 @@ public class MainScreen extends AppCompatActivity {
 
 
         }
-
-
-
     }
 
 }

@@ -54,7 +54,7 @@ public class SignUpActivity extends AppCompatActivity {
                 if (task.isSuccessful()) { finish();
                     FirebaseUser user = mAuth.getCurrentUser();
                     //Toast.makeText(SignUpActivity.this, "User UID: ", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(SignUpActivity.this,MainScreen.class));
+                    //startActivity(new Intent(SignUpActivity.this,MainScreen.class));
                     Intent intent = new Intent(SignUpActivity.this, MainScreen.class);
                     intent.putExtra("UID", user.getUid());
                     //Toast.makeText(SignUpActivity.this,"Antes de: " + user.getUid(), Toast.LENGTH_LONG).show();
