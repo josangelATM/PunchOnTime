@@ -7,110 +7,105 @@
     android:background="#444444"
     tools:context=".SignUpActivity">
 
-    <Button
-        android:id="@+id/btnHR"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:shadowColor="@color/buttonColor"
-        android:text="HR"
-        android:textColor="@color/buttonColorText"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.789" />
 
     <TextView
-        android:id="@+id/tvPasswordReset"
+        android:id="@+id/tvHelp3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:fontFamily="casual"
-        android:text="@string/Reset_Password"
-        android:textColor="#0040ff"
-        android:textSize="20sp"
-        android:visibility="invisible"
+        android:text="Actualiza los tiempos."
+        android:textColor="@color/textViewColor"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.598" />
+
+    <TextView
+        android:id="@+id/tvHelp2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:text="Cambia el estado actual por el estado seleccionado de la lista."
+        android:textColor="@color/textViewColor"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
-
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:fontFamily="casual"
-        android:gravity="center"
-        android:hint="Contraseña"
-        android:inputType="textPassword"
-        android:textColor="@color/textViewColor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.62" />
-
+        app:layout_constraintVertical_bias="0.35000002" />
 
     <TextView
-        android:id="@+id/tvTitulo"
+        android:id="@+id/tvHelp4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="casual"
-        android:text="Punch On Time"
+        android:text="Muestra la información de asistencia."
         android:textColor="@color/textViewColor"
-        android:textSize="36sp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.82" />
+
+    <TextView
+        android:id="@+id/tvHello3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:text="Ayuda de Botones"
+        android:textColor="@color/textViewColor"
+        android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.32" />
+        app:layout_constraintVertical_bias="0.100000024" />
+
+    <ImageButton
+        android:id="@+id/ibtTimeSheet2"
+        android:layout_width="94dp"
+        android:layout_height="79dp"
+        android:layout_marginTop="16dp"
+        android:clickable="false"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.72"
+        app:srcCompat="@mipmap/time_sheet" />
 
     <Button
-        android:id="@+id/btnSignIn"
+        android:id="@+id/btnCambiar2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="false"
         android:fontFamily="casual"
         android:shadowColor="@color/buttonColor"
-        android:text="ENTRAR"
+        android:text="CAMBIAR"
         android:textColor="@color/buttonColorText"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.789" />
+        app:layout_constraintVertical_bias="0.25" />
 
-    <EditText
-        android:id="@+id/etCorreo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:fontFamily="casual"
-        android:gravity="center"
-        android:hint="Correo"
-        android:inputType="textPersonName"
-        android:textColor="@color/textViewColor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="163dp"
-        android:layout_height="160dp"
+    <ImageButton
+        android:id="@+id/ibtUpdateClock2"
+        android:layout_width="94dp"
+        android:layout_height="79dp"
+        android:clickable="false"
+        android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05"
-        app:srcCompat="@mipmap/on_time_clock" />
-
+        app:layout_constraintVertical_bias="0.48000002"
+        app:srcCompat="@mipmap/update_clock" />
 </androidx.constraintlayout.widget.ConstraintLayout>

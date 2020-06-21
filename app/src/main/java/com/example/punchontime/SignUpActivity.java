@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -60,15 +61,14 @@ public class SignUpActivity extends AppCompatActivity {
                     //Toast.makeText(SignUpActivity.this,"Antes de: " + user.getUid(), Toast.LENGTH_LONG).show();
                     startActivity(intent);
                 } else {
-                    Toast.makeText(SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    TextView tvResetPassword = findViewById(R.id.tvPasswordReset);
+                    tvResetPassword.setVisibility(View.VISIBLE);
                 }
                 }
             });
         }
 
-     private void getIn(){
 
-     }
     }
 
 
