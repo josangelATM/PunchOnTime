@@ -29,11 +29,11 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                Toast.makeText(MainActivity.this, "Data Get.", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(MainActivity.this, "Data Get.", Toast.LENGTH_LONG).show();
                             }
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
-                            Toast.makeText(MainActivity.this, "Data NO Get, cha madre.", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(MainActivity.this, "Data NO Get, cha madre.", Toast.LENGTH_LONG).show();
                         }
                     }
                 });

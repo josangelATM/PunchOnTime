@@ -32,6 +32,7 @@ public class timeSheet extends AppCompatActivity {
         setContentView(R.layout.activity_time_sheet);
         Intent intent=this.getIntent();
         final String UserUID = intent.getStringExtra("UID");
+        final String mode = intent.getStringExtra("Mode");
 
         CalendarView calendarView=(CalendarView) findViewById(R.id.calendar);
 
@@ -60,6 +61,11 @@ public class timeSheet extends AppCompatActivity {
 
             }
         });
+
+        if (mode.equals("HR")){
+            TextView tvReclamoEmail = (TextView) findViewById(R.id.tvReclamo);
+            tvReclamoEmail.setVisibility(View.INVISIBLE);
+        }
 
 
         TextView tvReclamoEmail = (TextView) findViewById(R.id.tvReclamo);

@@ -59,6 +59,7 @@ public class MainScreen extends AppCompatActivity {
         final String UserUID = intent.getStringExtra("UID");
 
 
+
         Map data;
 
         DocumentReference docRef = db.collection("users").document(UserUID.toString());
@@ -233,23 +234,6 @@ public class MainScreen extends AppCompatActivity {
 
                 if (newState.equals("Finalizar turno")){
 
-                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                DocumentSnapshot document = task.getResult();
-                                if (document.exists()) {
-                                    updateTimers(document.getData(),UserUID);
-                                    Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                                } else {
-                                    Log.d(TAG, "No such document");
-                                }
-                            } else {
-                                Log.d(TAG, "get failed with ", task.getException());
-                            }
-                        }
-                    });
-
                     LocalTime nowTime= LocalTime.now();
                     String nowTimeString=nowTime.toString();
                     String patternHours = "^[0-9]+:[0-9]+";
@@ -278,23 +262,6 @@ public class MainScreen extends AppCompatActivity {
                                     Log.w(TAG, "Error updating document Finalizar", e);
                                 }
                             });
-                    /*
-                    docRef = db.collection("users").document(UserUID);
-                    docRef
-                            .update("horaEntrada", "")
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w(TAG, "Error updating document Finalizar", e);
-                                }
-                            });
-        */
 
                     docRef = db.collection("users").document(UserUID.toString());
                     docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -315,9 +282,23 @@ public class MainScreen extends AppCompatActivity {
                         }
                     });
 
-
-
-
+                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    updateTimers(document.getData(),UserUID);
+                                    updateWorkedHours(document.getData(),UserUID);
+                                    Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                } else {
+                                    Log.d(TAG, "No such document");
+                                }
+                            } else {
+                                Log.d(TAG, "get failed with ", task.getException());
+                            }
+                        }
+                    });
                 }
 
                 if (newState.equals("Tiempo de trabajo")){
@@ -366,7 +347,6 @@ public class MainScreen extends AppCompatActivity {
                                     Log.w(TAG, "Ahh verg*, no se subió.", e);
                                 }
                             });
-
 
                 }
 
@@ -447,7 +427,6 @@ public class MainScreen extends AppCompatActivity {
         return true;
     }
 
-
     protected  void onStart(){
         super.onStart();
         Intent intent=this.getIntent();
@@ -457,7 +436,7 @@ public class MainScreen extends AppCompatActivity {
         ibUpdateClock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainScreen.this, "Tiempos actualizados", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainScreen.this, "Tiempos actualizados", Toast.LENGTH_SHORT).show();
                 DocumentReference docRef = db.collection("users").document(UserUID);
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -486,6 +465,7 @@ public class MainScreen extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainScreen.this, timeSheet.class);
                 intent.putExtra("UID", UserUID);
+                intent.putExtra("Mode","Emp");
                 startActivity(intent);
 
             }
@@ -506,8 +486,6 @@ public class MainScreen extends AppCompatActivity {
 
         writeTimers(horaEntrada,horaLunchI,horaLunchF,tiempoLunch,tiempoTrabajado,UserUID,Boolean.parseBoolean(data.get("lunchTomado").toString()));
     }
-
-
 
     public void populateDates(Map data, String UserUID){
         Calendar cal = Calendar.getInstance();
@@ -606,7 +584,7 @@ public class MainScreen extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         Toast toast=Toast.makeText(getApplicationContext(),"Populate First", Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER,0,0);
-                        toast.show();
+                        //toast.show();
                         Log.d(TAG, "DocumentSnapshot successfully written!");
                     }
                 })
@@ -1013,7 +991,7 @@ public class MainScreen extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(getApplicationContext(),"Update First", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(),"Update First", Toast.LENGTH_LONG).show();
                             Log.d(TAG, "DocumentSnapshot successfully updated!");
                         }
                     })
@@ -1210,4 +1188,88 @@ public class MainScreen extends AppCompatActivity {
         }
     }
 
+    public void updateWorkedHours(Map data, String UserUID){
+        String timeWorkedStr=data.get("tiempoTrabajado").toString(); //Tiempo trabajado today.
+        String workedHoursStr=data.get("workedHours").toString(); //Tiempo trabajado historical.
+        float workedHoursFloat= Float.parseFloat(workedHoursStr); // Tiempo trabajado today to float.
+
+        String patternHours = "([0-9]{1,2}):([0-9]{2})";
+        Pattern r = Pattern.compile(patternHours);
+        Matcher m = r.matcher(timeWorkedStr);
+
+        float hoursWork=0.0f;
+        float minutesWork=0.0f;
+
+        if (m.find()) {
+            hoursWork=Float.parseFloat(m.group(1));
+            minutesWork=Float.parseFloat(m.group(2));
+        }
+
+        minutesWork=minutesWork/60;
+
+        float todayWorkedTime=hoursWork+minutesWork;
+
+        float newWorkedTime=todayWorkedTime+workedHoursFloat;
+
+        DocumentReference docRef;
+        docRef = db.collection("users").document(UserUID);
+        docRef
+                .update("workedHours", String.valueOf(newWorkedTime))
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentUpdated yeyo!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Ahh verg*, no se subió.", e);
+                    }
+                });
+
+        //Mismo proceso para las horas lunch
+
+        String timeLunchStr=data.get("tiempoLunch").toString(); //Tiempo trabajado today.
+        String lunchHoursStr=data.get("lunchHours").toString(); //Tiempo trabajado historical.
+        float lunchHoursFloat= Float.parseFloat(lunchHoursStr); // Tiempo trabajado today to float.
+
+        patternHours = "([0-9]{1,2}):([0-9]{2})";
+        r = Pattern.compile(patternHours);
+        m = r.matcher(timeLunchStr);
+
+        float hoursLunch=0.0f;
+        float minutesLunch=0.0f;
+
+        if (m.find()) {
+            hoursLunch=Float.parseFloat(m.group(1));
+            minutesLunch=Float.parseFloat(m.group(2));
+        }
+
+        minutesLunch=minutesLunch/60;
+
+        float todayLunchTime=hoursLunch+minutesLunch;
+
+        float newLunchTime=todayLunchTime+lunchHoursFloat;
+
+        docRef = db.collection("users").document(UserUID);
+        docRef
+                .update("lunchHours", String.valueOf(newLunchTime))
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentUpdated yeyo!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Ahh verg*, no se subió.", e);
+                    }
+                });
+
+    }
+
 }
+
+

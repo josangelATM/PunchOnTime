@@ -3,9 +3,12 @@ package com.example.punchontime;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     final boolean success=false;
+    private String m_Text="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +33,16 @@ public class SignUpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         Button btnSignIn= findViewById(R.id.btnSignIn);
+
+
+        Button btnHRMode= findViewById(R.id.btnHR);
+        btnHRMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignUpActivity.this, SelectEmploye.class);
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -40,6 +54,9 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
+
+
+
 
     }
 
