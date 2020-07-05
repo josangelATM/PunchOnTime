@@ -3,10 +3,13 @@ package com.example.punchontime;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -31,11 +34,9 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         mAuth = FirebaseAuth.getInstance();
-
         Button btnSignIn= findViewById(R.id.btnSignIn);
-
-
         Button btnHRMode= findViewById(R.id.btnHR);
+
         btnHRMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,7 +44,6 @@ public class SignUpActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
 
         final Context context = this;
@@ -55,9 +55,6 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-
-
-
     }
 
     private void signIn() {
@@ -66,23 +63,30 @@ public class SignUpActivity extends AppCompatActivity {
         String email = inputCorreo.getText().toString().trim();
         String password = inputPassword.getText().toString().trim();
 
+        if (email.isEmpty() || password.isEmpty()){
+            Toast.makeText(SignUpActivity.this, "Email o password incorrecto..", Toast.LENGTH_LONG).show();
 
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) { finish();
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    //Toast.makeText(SignUpActivity.this, "User UID: ", Toast.LENGTH_LONG).show();
-                    //startActivity(new Intent(SignUpActivity.this,MainScreen.class));
-                    Intent intent = new Intent(SignUpActivity.this, MainScreen.class);
-                    intent.putExtra("UID", user.getUid());
-                    //Toast.makeText(SignUpActivity.this,"Antes de: " + user.getUid(), Toast.LENGTH_LONG).show();
-                    startActivity(intent);
-                } else {
-                    TextView tvResetPassword = findViewById(R.id.tvPasswordReset);
-                    tvResetPassword.setVisibility(View.VISIBLE);
-                }
+        }
+
+        else{
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) { finish();
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        //Toast.makeText(SignUpActivity.this, "User UID: ", Toast.LENGTH_LONG).show();
+                        //startActivity(new Intent(SignUpActivity.this,MainScreen.class));
+                        Intent intent = new Intent(SignUpActivity.this, MainScreen.class);
+                        intent.putExtra("UID", user.getUid());
+                        //Toast.makeText(SignUpActivity.this,"Antes de: " + user.getUid(), Toast.LENGTH_LONG).show();
+                        startActivity(intent);
+                    } else {
+
+                        Toast.makeText(SignUpActivity.this, "Email o password incorrecto..", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
+        }
+
         }
 
 

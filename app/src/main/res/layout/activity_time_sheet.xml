@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#444444"
+    android:background="#EDEDF4"
     tools:context=".MainActivity">
 
 
@@ -13,9 +13,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:fontFamily="casual"
+        android:fontFamily="@font/roboto_thin"
         android:text="@string/Reclamo_Email"
-        android:textColor="#0040ff"
+        android:textColor="#000000 "
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,128 +25,128 @@
         app:layout_constraintVertical_bias="0.95" />
 
     <TextView
-        android:id="@+id/tvLabel5"
+        android:id="@+id/tvLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:text="Tiempo trabajado"
-        android:textColor="@color/textViewColor"
+        android:fontFamily="@font/roboto_thin"
+        android:text="Hora entrada"
+        android:textColor="#000000 "
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.19"
+        app:layout_constraintHorizontal_bias="0.146"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.76" />
+        app:layout_constraintVertical_bias="0.621" />
 
     <TextView
         android:id="@+id/tvLabel6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="casual"
+        android:fontFamily="@font/roboto_thin"
         android:text="Tiempo lunch"
-        android:textColor="@color/textViewColor"
+        android:textColor="#000000 "
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintHorizontal_bias="0.153"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.84000003" />
+        app:layout_constraintVertical_bias="0.872" />
 
     <TextView
-        android:id="@+id/tvLabel"
+        android:id="@+id/tvLabel5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:text="Hora entrada"
-        android:textColor="@color/textViewColor"
+        android:fontFamily="@font/roboto_thin"
+        android:text="Tiempo trabajado"
+        android:textColor="#000000 "
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintHorizontal_bias="0.198"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.59000003" />
+        app:layout_constraintVertical_bias="0.791" />
 
     <TextView
         android:id="@+id/tvLabel4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="casual"
+        android:fontFamily="@font/roboto_thin"
         android:text="Hora salida"
-        android:textColor="@color/textViewColor"
+        android:textColor="#000000 "
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintHorizontal_bias="0.142"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.68" />
+        app:layout_constraintVertical_bias="0.711" />
 
     <TextView
         android:id="@+id/tvHoraEntrada"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:textColor="@color/textViewColor"
+        android:fontFamily="@font/roboto_bold"
+        android:textColor="#000000 "
         android:textSize="23sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.83"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.59000003" />
+        app:layout_constraintVertical_bias="0.62" />
 
     <TextView
         android:id="@+id/tvHoraSalida"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:textColor="@color/textViewColor"
+        android:fontFamily="@font/roboto_bold"
+        android:textColor="#000000 "
         android:textSize="23sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.83"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.68" />
+        app:layout_constraintVertical_bias="0.71000004" />
 
     <TextView
         android:id="@+id/tvTiempoTrabajado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:textColor="@color/textViewColor"
+        android:fontFamily="@font/roboto_bold"
+        android:textColor="#000000 "
         android:textSize="23sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.83"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.76" />
+        app:layout_constraintVertical_bias="0.79" />
 
     <TextView
         android:id="@+id/tvTiempoLunch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:textColor="@color/textViewColor"
+        android:fontFamily="@font/roboto_bold"
+        android:textColor="#000000 "
         android:textSize="23sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.83"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.84000003" />
+        app:layout_constraintVertical_bias="0.87" />
 
     <TextView
         android:id="@+id/tvTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="casual"
+        android:fontFamily="@font/roboto_bold"
         android:text="Hoja de trabajo"
-        android:textColor="@color/textViewColor"
+        android:textColor="#000000 "
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -158,22 +158,23 @@
         android:id="@+id/tvHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="casual"
+        android:fontFamily="@font/roboto_thin"
         android:text="Seleccione algún día para mostrar la información."
-        android:textColor="@color/textViewColor"
-        android:textSize="14sp"
+        android:textColor="#000000 "
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.52" />
+        app:layout_constraintVertical_bias="0.55" />
 
     <CalendarView
         android:id="@+id/calendar"
+        android:layout_width="323dp"
+        android:layout_height="293dp"
         android:firstDayOfWeek="2"
-        android:layout_width="339dp"
-        android:layout_height="268dp"
+        android:selectedWeekBackgroundColor="#66A182"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"

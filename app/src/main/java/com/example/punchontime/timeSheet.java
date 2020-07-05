@@ -51,6 +51,7 @@ public class timeSheet extends AppCompatActivity {
                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                             } else {
                                 Log.d(TAG, "No such document");
+                                cleanData();
                             }
                         } else {
                             Log.d(TAG, "get failed with ", task.getException());
@@ -104,6 +105,19 @@ public class timeSheet extends AppCompatActivity {
         tvSalida.setText(horaSalida);
         tvLunch.setText(lunchTime);
         tvWork.setText(workTime);
+
+    }
+
+    public void cleanData(){
+        TextView tvEntrada = findViewById(R.id.tvHoraEntrada);
+        TextView tvSalida = findViewById(R.id.tvHoraSalida);
+        TextView tvLunch = findViewById(R.id.tvTiempoLunch);
+        TextView tvWork = findViewById(R.id.tvTiempoTrabajado);
+
+        tvEntrada.setText("00:00");
+        tvSalida.setText("00:00");
+        tvLunch.setText("00:00");
+        tvWork.setText("00:00");
 
     }
 }

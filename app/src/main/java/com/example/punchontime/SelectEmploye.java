@@ -119,8 +119,9 @@ public class SelectEmploye extends AppCompatActivity {
 
     public void populateEmployeeSpn( List<String> spinnerArray){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, spinnerArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                this,R.layout.my_spinner,spinnerArray);
+
+        adapter.setDropDownViewResource(R.layout.my_spinner);
         Spinner sItems = (Spinner) findViewById(R.id.spnEmployees);
         sItems.setAdapter(adapter);
 

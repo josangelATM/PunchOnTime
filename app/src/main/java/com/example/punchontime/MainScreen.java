@@ -899,9 +899,9 @@ public class MainScreen extends AppCompatActivity {
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, spinnerArray);
+                this,R.layout.my_spinner, spinnerArray);
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.my_spinner);
         Spinner sItems = (Spinner) findViewById(R.id.spnOptionsWork);
         sItems.setAdapter(adapter);
     }
